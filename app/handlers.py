@@ -1,14 +1,13 @@
 from .events import ContactCreated, ContactUpdated, ContactDeleted
-from .policy import policies, PhoneNumberLongEnough
+from .policy import policy, PhoneNumberLongEnough
 
-
+@policy(PhoneNumberLongEnough())
 class CreateContactHandler:
 
     def __init__(self, repo, bus):
         self.repo = repo
         self.bus = bus
 
-    @policies(PhoneNumberLongEnough())
     def __call__(self, cmd):
         self.repo.create(cmd.name, cmd.phone)
         self.bus.publish(ContactCreated(name=cmd.name, phone=cmd.phone))

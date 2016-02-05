@@ -60,7 +60,7 @@ def main():
     register_commands(repo, cmd_bus, evt_bus)
     register_events(evt_bus)
 
-    create_contact = CreateContact('Csaba', '+44')
+    create_contact = CreateContact('Csaba', '+4')
     cmd_bus.handle(create_contact)
 
     create_contact = CreateContact('Csaba', '+447922')

@@ -16,7 +16,13 @@ class CommandDispatcher:
         t = type(cmd)
         if t not in self.handlers:
             raise NoRegisteredHandlerError()
-        return self.handlers[t](cmd)
+        handler = self.handlers[t]
+        policies = getattr(handler, 'policies', [])
+        for policy in policies:
+            if not policy.is_satisfied(cmd):
+                print('PolicyError: %s(%s)' % (policy, cmd))
+                return
+        return handler(cmd)
 
 
 class EventDispatcher:

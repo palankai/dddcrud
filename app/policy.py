@@ -1,6 +1,3 @@
-import functools
-
-
 class Specification:
 
     def is_satisfied(self, cmd):
@@ -11,15 +8,12 @@ class PhoneNumberLongEnough(Specification):
     def is_satisfied(self, cmd):
         return len(cmd.phone) > 3
 
+    def __str__(self):
+        return self.__class__.__name__
 
-def policies(*args):
+
+def policy(*policies):
     def decorator(func):
-        @functools.wraps(func)
-        def wrapper(self, cmd):
-            for p in args:
-                if not p.is_satisfied(cmd):
-                    print('ERROR: %s' % p.__class__.__name__)
-                    return
-            return func(self, cmd)
-        return wrapper
+        func.policies = policies
+        return func
     return decorator
