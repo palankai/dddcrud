@@ -6,7 +6,7 @@ Python DDD Playground around CRUD operation
 
 ```
 $ python -m app.main
-ERROR: PhoneNumberLongEnough
+PolicyError: PhoneNumberLongEnough(create_contact(name='Csaba', phone='+4'))
 contact_created(name='Csaba', phone='+447922')
 <Contact(Csaba, FAKE)>
 ```
